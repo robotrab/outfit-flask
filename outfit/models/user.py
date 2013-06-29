@@ -48,9 +48,7 @@ class User:
     def add_user(self, username, password, email):
         password_hash = self.make_pw_hash(password)
 
-        user = {'_id': username, 'password': password_hash}
-        if email != "":
-            user['email'] = email
+        user = {'_id': username, 'password': password_hash, 'email': email}
 
         try:
             self.users.insert(user)
