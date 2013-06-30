@@ -13,7 +13,10 @@ app.secret_key = config.c['SECRET']
 
 @app.route('/')
 def index():
-    return 'Hello World!'
+    username = None
+    if 'username' in session:
+        username = session['username']
+    return render_template("index.html", username=username)
 
 ###############################################################
 #AUTHENTICATION AND SIGNUP
@@ -54,7 +57,21 @@ def login():
         return render_template("login.html")
 
 def post_login(request):
+    username = request.form["username"]
+    password = request.form["password"]
 
+    user_record = users.validate_login(username, password)
+    if user_record:
+        # username is stored in the user collection in the _id key
+        session['username'] = user_record['_id']
+
+        # if session_id is None:
+        #     bottle.redirect("/internal_error")
+
+        return redirect(url_for("welcome"))
+
+    else:
+        return render_template("login.html", username=username, password="", login_error="Invalid Login")
 
 @app.route('/logout')
 def logout():
