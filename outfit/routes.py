@@ -1,5 +1,5 @@
 from outfit import app
-from outfit.models import user
+from outfit.models import user, profile
 from outfit import config
 from flask import Flask, session, redirect, url_for, escape, request, render_template
 import pymongo
@@ -11,16 +11,26 @@ database = connection[config.c['DB']]
 users = user.User(database)
 app.secret_key = config.c['SECRET']
 
+###############################################################
+#INDEX AND PROFILE
+###############################################################
+
 @app.route('/')
 def index():
     username = None
     if 'username' in session:
         username = session['username']
+        #return profile_home(username)
+
     return render_template("index.html", username=username)
+
+def profile_home(username):
+    return render_template("profile_home.html")
 
 ###############################################################
 #AUTHENTICATION AND SIGNUP
 ###############################################################
+
 @app.route('/signup', methods=['GET', 'POST'])
 def signup():
     if request.method == 'POST':

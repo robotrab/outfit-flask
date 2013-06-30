@@ -47,8 +47,17 @@ class User:
     # creates a new user in the users collection
     def add_user(self, username, password, email):
         password_hash = self.make_pw_hash(password)
+        gravatar_hash = hashlib.md5(email).hexdigest()
 
-        user = {'_id': username, 'password': password_hash, 'email': email}
+        user = {
+            '_id': username,
+            'password': password_hash,
+            'email': email,
+            'name': '',
+            'follows': [],
+            'followers': [],
+            'avatar': 'http://www.gravatar.com/avatar/' + gravatar_hash
+            }
 
         try:
             self.users.insert(user)
