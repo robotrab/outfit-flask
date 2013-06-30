@@ -71,3 +71,17 @@ class User:
             return False
 
         return True
+
+    def get_user(self, username):
+        user = None
+
+        try:
+            user = self.users.find_one({"_id": username})
+        except:
+            print "Unable to query database for user"
+
+        if user is None:
+            print "User not in database"
+            return None
+
+        return user

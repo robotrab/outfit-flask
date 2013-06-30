@@ -20,12 +20,13 @@ def index():
     username = None
     if 'username' in session:
         username = session['username']
-        #return profile_home(username)
+        return profile_home(username)
 
     return render_template("index.html", username=username)
 
 def profile_home(username):
-    return render_template("profile_home.html")
+    user_info = users.get_user(username)
+    return render_template("profile_home.html", user_info=user_info)
 
 ###############################################################
 #AUTHENTICATION AND SIGNUP

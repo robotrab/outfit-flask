@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Outfit</title>
+</head>
+<body>
+
+
+Welcome {{user_info.username}}
+<a href="/logout">Logout</a> | <a href="/newpost">New Post</a>
+
+
+<h1>Outfit</h1>
+
+You have {{user_info.followers|length}} followers. </br>
+You are following {{user_info.follows|length}} users. </br>
+<img src='{{user_info.avatar}}' /></br>
+
+</body>
+</html>
+
+
