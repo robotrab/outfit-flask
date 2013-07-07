@@ -8,7 +8,7 @@ class Post:
         self.posts = self.db.posts
         self.SECRET = config.c['SECRET']
 
-    def get_spefic_post(self, post_id):
+    def get_specific_post(self, post_id):
         post = None
 
         try:
@@ -22,10 +22,10 @@ class Post:
 
         return post
 
-    def get_all_posts(self, user):
+    def get_user_posts(self, user):
         posts = []
         try:
-            posts = self.posts.find({"user": user["_id"]})
+            posts = self.posts.find({"user": user["_id"]}).sort({"posted_at": pymongo.DESCENDING})
         except:
             print "Unable to query database for posts"
 
@@ -34,8 +34,20 @@ class Post:
     def get_follow_posts(self, user):
         posts = []
         try:
-            posts = self.posts.find({"user": {"$in": user["follows"]}})
+            posts = self.posts.find({"user": {"$in": user["follows"]}}).sort({"posted_at": pymongo.DESCENDING})
         except:
             print "Unable to query database for posts"
 
         return posts
+
+    def get_all_posts(self, user):
+        posts = []
+        try:
+            posts = self.posts.find({"$or": [{"user": user["_id"]}, {"user": {"$in": user["follows"]}}]}).sort({"posted_at": pymongo.DESCENDING})
+        except:
+            print "Unable to query database for posts"
+
+        return posts
+
+    def add_new_posts(self, post):
+        pass

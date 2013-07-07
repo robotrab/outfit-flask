@@ -4,6 +4,7 @@ from outfit import config
 from flask import Flask, session, redirect, url_for, escape, request, render_template
 import pymongo
 import re
+import datetime
 
 connection = pymongo.MongoClient(config.c['DB_URL'])
 database = connection[config.c['DB']]
@@ -29,6 +30,39 @@ def profile_home(username):
     user_info = users.get_user(username)
     post_info = posts.get_follow_posts(user_info)
     return render_template("profile_home.html", user_info=user_info, post_info=post_info)
+
+@app.route('/post', methods=['GET', 'POST'])
+def new_post():
+    if request.method == 'POST':
+        return add_post(request)
+    else:
+        if 'username' in session:
+            return render_template("new_post.html")
+        else:
+            return redirect(url_for('login'))
+
+def add_post(request):
+    post = {
+        "user": session['username'],
+        "favorites": 0,
+        "posted_at": str(datetime.datetime.now()),
+        "message": request.form['message'],
+        "image": request.form['image'],
+        "replies": []
+    }
+
+    errors = {}
+    if validate_post(post, errors):
+        if not posts.add_new_post(post):
+            # this was a duplicate
+            errors['post_error'] = "Post duplicate. Something went wrong."
+            return render_template("new_post.html", errors=errors)
+
+        return redirect(url_for("/"))
+    else:
+        print "Post was not successful."
+        return render_template("new_post.html", errors=errors)
+
 
 ###############################################################
 #AUTHENTICATION AND SIGNUP
@@ -130,3 +164,6 @@ def validate_signup(username, password, verify, email, errors):
         return False
 
     return True
+
+def validate_post(post, errors):
+    pass
