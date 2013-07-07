@@ -27,7 +27,7 @@ def index():
 
 def profile_home(username):
     user_info = users.get_user(username)
-    post_info = posts.get_all_posts(username)
+    post_info = posts.get_follow_posts(user_info)
     return render_template("profile_home.html", user_info=user_info, post_info=post_info)
 
 ###############################################################

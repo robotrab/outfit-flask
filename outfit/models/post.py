@@ -22,10 +22,19 @@ class Post:
 
         return post
 
-    def get_all_posts(self, username):
+    def get_all_posts(self, user):
         posts = []
         try:
-            posts = self.posts.find({"user": username})
+            posts = self.posts.find({"user": user["_id"]})
+        except:
+            print "Unable to query database for posts"
+
+        return posts
+
+    def get_follow_posts(self, user):
+        posts = []
+        try:
+            posts = self.posts.find({"user": {"$in": user["follows"]}})
         except:
             print "Unable to query database for posts"
 
