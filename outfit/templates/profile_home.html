@@ -1,13 +1,50 @@
 {% extends "layouts/layout.html" %}
 {% block title %}Home{% endblock %}
 {% block content %}
-    Welcome {{user_info.username}}
-    <a href="/logout">Logout</a> | <a href="/newpost">New Post</a>
 
 
-    <h1>Outfit</h1>
+    <div class="row-fluid">
+        <div class="span2">
+          <div class="well sidebar-nav nav-side">
+            <ul class="nav nav-list">
+              <li class="nav-header"><a href="#">
+                <img class="img-polaroid" src="{{user_info.avatar}}">{{user_info._id}}</a></li>
+              <li class="active"><a href="#"><i class="icon-eye-open"></i>Following ({{user_info.follows|length}})</a></li>
+              <li><a href="#"><i class="icon-user"></i>Followers ({{user_info.followers|length}})</a></li>
+              <li><a href="#"><i class="icon-heart"></i>Favorites (0)</a></li>
+              <li><a href="#"><i class="icon-search"></i>Find</a></li>
+              <li><a href="#"><i class="icon-edit"></i>Post</a></li>
+              <!-- <li><a href="#">Trending</a></li> -->
+            </ul>
+          </div><!--/.well -->
+        </div><!--/span-->
 
-    You have {{user_info.followers|length}} followers. </br>
-    You are following {{user_info.follows|length}} users. </br>
-    <img src='{{user_info.avatar}}' /></br>
+        <div class="span3 well">
+            <img src="{{url_for('static', filename='img/cats1.jpg')}}" alt="Cat1" />
+            <ul class="unstyled inline share-row">
+                <li><a class="btn" href="#">Comment &raquo;</a></li>
+                <li class="pull-right"><a class="btn" href="#"><i class="icon-eye-open"></i></a></li>
+                <li class="pull-right"><a class="btn" href="#"><i class="icon-heart"></i></a></li>
+            </ul>
+        </div>
+        <div class="span4 well">
+            <img src="{{url_for('static', filename='img/cats2.jpg')}}" class="img-rounded" alt="Cat2" />
+            <ul class="unstyled inline share-row">
+                <li><a class="btn" href="#">Comment &raquo;</a></li>
+                <li class="pull-right"><a class="btn" href="#"><i class="icon-eye-open"></i></a></li>
+                <li class="pull-right"><a class="btn" href="#"><i class="icon-heart"></i></a></li>
+            </ul>
+       </div>
+        <div class="span3 well">
+            <img src="{{url_for('static', filename='img/cats3.jpg')}}" alt="Cat3" />
+            <ul class="unstyled inline share-row">
+                <li><a class="btn" href="#">Comment &raquo;</a></li>
+                <li class="pull-right"><a class="btn" href="#"><i class="icon-eye-open"></i></a></li>
+                <li class="pull-right"><a class="btn" href="#"><i class="icon-heart"></i></a></li>
+            </ul>
+        </div>
+    </div>
+
+    <hr>
+
 {% endblock %}

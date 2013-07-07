@@ -5,6 +5,17 @@
    ========================================================================== */
 
 
+.share-row {
+    margin-top: 10px;
+}
+
+ul.share-row li:first-child {
+    padding-left: 0;
+}
+
+ul.share-row li:nth-child(2) {
+    padding-right: 0;
+}
 
 
 

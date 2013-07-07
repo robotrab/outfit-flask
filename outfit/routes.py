@@ -1,5 +1,5 @@
 from outfit import app
-from outfit.models import user, profile
+from outfit.models import user, post
 from outfit import config
 from flask import Flask, session, redirect, url_for, escape, request, render_template
 import pymongo
@@ -9,6 +9,7 @@ connection = pymongo.MongoClient(config.c['DB_URL'])
 database = connection[config.c['DB']]
 
 users = user.User(database)
+posts = post.Post(database)
 app.secret_key = config.c['SECRET']
 
 ###############################################################
@@ -26,7 +27,8 @@ def index():
 
 def profile_home(username):
     user_info = users.get_user(username)
-    return render_template("profile_home.html", user_info=user_info)
+    post_info = posts.get_all_posts(username)
+    return render_template("profile_home.html", user_info=user_info, post_info=post_info)
 
 ###############################################################
 #AUTHENTICATION AND SIGNUP
