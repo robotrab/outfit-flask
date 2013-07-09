@@ -1,0 +1,8 @@
+<form enctype=multipart/form-data action="{{url_for('post')}}" method="POST">
+{{errors}}
+<input type=file name=photo>
+<h2>Comment<h2>
+<textarea name="message" cols="120" rows="20">{{message}}</textarea><br>
+<p>
+<input type="submit" value="Submit">
+</form>

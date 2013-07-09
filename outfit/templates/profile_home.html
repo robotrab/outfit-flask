@@ -9,11 +9,11 @@
             <ul class="nav nav-list">
               <li class="nav-header"><a href="#">
                 <img class="img-polaroid" src="{{user_info.avatar}}">{{user_info._id}}</a></li>
-              <li class="active"><a href="{{url_for('/follows')}}"><i class="icon-eye-open"></i>Following ({{user_info.follows|length}})</a></li>
-              <li><a href="{{url_for('/followers')}}"><i class="icon-user"></i>Followers ({{user_info.followers|length}})</a></li>
-              <li><a href="{{url_for('/favorites')}}"><i class="icon-heart"></i>Favorites (0)</a></li>
-              <li><a href="{{url_for('/find')}}"><i class="icon-search"></i>Find</a></li>
-              <li><a href="{{url_for('/post')}}"><i class="icon-edit"></i>Post</a></li>
+              <li class="active"><a href="{{url_for('follows')}}"><i class="icon-eye-open"></i>Following ({{user_info.follows|length}})</a></li>
+              <li><a href="{{url_for('followers')}}"><i class="icon-user"></i>Followers ({{user_info.followers|length}})</a></li>
+              <li><a href="{{url_for('favorites')}}"><i class="icon-heart"></i>Favorites (0)</a></li>
+              <li><a href="{{url_for('find')}}"><i class="icon-search"></i>Find</a></li>
+              <li><a href="{{url_for('post')}}"><i class="icon-edit"></i>Post</a></li>
               <!-- <li><a href="#">Trending</a></li> -->
             </ul>
           </div><!--/.well -->

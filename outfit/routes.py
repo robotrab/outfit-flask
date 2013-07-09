@@ -47,7 +47,8 @@ def add_post(request):
         "favorites": 0,
         "posted_at": str(datetime.datetime.now()),
         "message": request.form['message'],
-        "image": request.form['image'],
+        "image": { "img": request.form['image'],
+                    "tags": []},
         "replies": []
     }
 
